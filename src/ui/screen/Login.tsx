@@ -14,14 +14,7 @@ const Login = () => {
     console.log(response);
   };
   const logout = () => {
-    console.log('lôgout');
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({
-      numberPlayer: 4,
-      inviteCode: 'FGASSD',
-    });
+    console.log('logout');
   };
 
   const onReset = () => {
@@ -38,6 +31,7 @@ const Login = () => {
         maxWidth: 1200,
         margin: '20px auto',
         boxShadow: '0 0 16px 10px rgb(125 75 30 / 15%)',
+        padding: 20
       }}
     >
       <Row justify={'space-between'}>
@@ -62,18 +56,12 @@ const Login = () => {
                     min={NUMBER_OF_PLAYER.MIN}
                     max={NUMBER_OF_PLAYER.MAX}
                     tipFormatter={(value) => `${value} Players`}
-                    onChange={(value) => Form.onValuesChange(value)}
                     value={typeof numberPlayer === 'number' ? numberPlayer : 2}
+                    onChange={(value: number) => setNumberPlayer(value)}
                   />
                 </Col>
                 <Col span={4}>
-                  <InputNumber
-                    min={1}
-                    max={20}
-                    style={{ margin: '0 16px' }}
-                    value={numberPlayer}
-                    onChange={(value) => setNumberPlayer(value)}
-                  />
+                  <p>{numberPlayer}</p>
                 </Col>
               </Row>
             </Form.Item>
@@ -91,9 +79,6 @@ const Login = () => {
               <Button htmlType="button" onClick={onReset}>
                 Reset
               </Button>
-              <Button type="link" htmlType="button" onClick={onFill}>
-                Fill form
-              </Button>
             </Form.Item>
           </Form>
         </Col>
@@ -109,7 +94,7 @@ const Login = () => {
             clientId={process.env.REACT_APP_CLIENT_ID as string}
             buttonText="Logout"
             onLogoutSuccess={logout}
-          ></GoogleLogout>
+          />
         </Col>
       </Row>
       <Divider
@@ -124,14 +109,14 @@ const Login = () => {
           chiếc đầu lâu ngay lập tức sẽ phải trả giá từ chính mạng sống của mình”, Skull ra đời. Một
           sự kết hợp đầy thú vị giữa thể loại chiến thuật và lừa phỉnh.
         </h3>
-        <pre>
+        <p>
           Mục tiêu: Thành công trong 2 lần thử thách hoặc là người cuối cùng còn giữ thẻ trên tay.
           Thành phần: 6 bộ tộc dành cho 6 người chơi, tương ứng với 6 màu sắc khác nhau. Mỗi bộ tộc
           gồm: 3 thẻ hoa 1 thẻ đầu lâu 1 tấm thảm Chuẩn bị: Mỗi người chơi chọn 1 bộ gồm 4 thẻ cùng
           màu và tấm thảm tương ứng. Đặt tấm thảm trước mặt. Che các thẻ bài lại và không cho người
           khác thấy.
-        </pre>
-        <pre>
+        </p>
+        <p>
           Bắt đầu Bước 1: Chọn thẻ đầu tiên Mỗi người chơi chọn 1 trong những thẻ bài của mình và
           đặt úp xuống thảm. Bước 2: Lựa chọn “thêm thẻ” hoặc “thách thức” Thêm thẻ: Người chơi đầu
           tiên có thể thêm 1 thẻ bài bằng cách đặt nó lên trên thẻ bài trước đó. Người chơi bên trái
@@ -154,7 +139,7 @@ const Login = () => {
           thức bị loại vì Lật thẻ đầu lâu của người chơi khác, người chơi đầu tiên của lượt tiếp
           theo sẽ là người có thẻ bài đầu lâu mà người thách thức đã lật. Lật thẻ đầu lâu của chính
           mình, người thách thức sẽ chọn người chơi đầu tiên cho lượt tiếp theo.
-        </pre>
+        </p>
       </Row>
     </Layout>
   );
