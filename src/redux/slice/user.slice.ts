@@ -1,17 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: 'test',
-  nickname: 'test2',
-  avatarLink: '',
+  currentUser: {
+    email: '',
+    familyName: '',
+    givenName: '',
+    googleId: '',
+    imageUrl: '',
+    name: '',
+  },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateUser: (state) => {
-      console.log(state);
+    updateUser: (state, action) => {
+      state.currentUser = action.payload
+        ? action.payload
+        : initialState.currentUser;
     },
   },
 });
