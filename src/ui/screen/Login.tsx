@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -8,7 +9,6 @@ import {
   Col,
   Layout,
   Slider,
-  InputNumber,
   Divider,
   Typography,
   Space,
@@ -17,12 +17,16 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from 'redux/slice/user.slice';
 import { NUMBER_OF_PLAYER } from 'constants/index';
+import { ROUTES } from 'constants/routes';
+import { createIDRoom } from 'functions/createRoom';
 
 const Login = () => {
   const [numberPlayer, setNumberPlayer] = useState(NUMBER_OF_PLAYER.MIN);
+  const [inviteCode, setInviteCode] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: any) => state.user);
-  const { email, familyName, givenName, googleId, imageUrl, name } =
+  const { email, fasmilyName, givenName, googleId, imageUrl, name } =
     user.currentUser;
   console.log('Login ~ user', user);
   const { Title, Paragraph, Text, Link } = Typography;
@@ -45,6 +49,13 @@ const Login = () => {
     console.log(values);
   };
 
+  const handleGoToRoom = (
+    _event: React.MouseEvent<HTMLElement>,
+    id?: string
+  ) => {
+    navigate(`${ROUTES.ROOM.path}/${id || createIDRoom()}`);
+  };
+
   return (
     <Layout
       style={{
@@ -61,7 +72,7 @@ const Login = () => {
             onFinish={onFinish}
             initialValues={{
               numberPlayer: 4,
-              inviteCode: 'KHONG CO',
+              inviteCode: '',
             }}
           >
             <Form.Item
@@ -92,12 +103,29 @@ const Login = () => {
               name="inviteCode"
               rules={[{ message: 'Please type invite code if you have!' }]}
             >
-              <Input />
+              <Input
+                value={inviteCode}
+                onChange={(e) => setInviteCode(e.target.value)}
+              />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Create Room
-              </Button>
+              {inviteCode ? (
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={(e) => handleGoToRoom(e, inviteCode)}
+                >
+                  Go to Room
+                </Button>
+              ) : (
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={handleGoToRoom}
+                >
+                  Create Room
+                </Button>
+              )}
               <Button htmlType="button" onClick={onReset}>
                 Reset
               </Button>

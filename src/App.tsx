@@ -6,11 +6,9 @@ import { ROUTES } from 'constants/routes';
 const App = () => {
   return (
     <Routes>
-      <Route path={ROUTES.LOGIN.path} element={<Login />}>
-        <Route index element={<Login />} />
-        <Route path={ROUTES.HOME.path} element={<Home />}>
-          <Route path={ROUTES.HOME_ID.path} element={<Home />} />
-        </Route>
+      <Route path={ROUTES.LOGIN.path} element={<Login />} />
+      <Route path={ROUTES.ROOM.path} element={<Home />}>
+        <Route path={ROUTES.ROOM_ID.path} element={<Home />} />
       </Route>
     </Routes>
   );

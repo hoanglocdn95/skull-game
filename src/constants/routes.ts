@@ -2,10 +2,10 @@ export const ROUTES = {
   LOGIN: {
     path: '/',
   },
-  HOME: {
-    path: '/home',
+  ROOM: {
+    path: '/room',
   },
-  HOME_ID: {
-    path: ':roomId',
+  ROOM_ID: {
+    path: '/room/:roomId',
   },
 };
